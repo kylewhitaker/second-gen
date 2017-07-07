@@ -1,0 +1,7 @@
+PRODUCT Domain 20.00
+PRODUCT EmailAccount 60.00
+PRODUCT Website 35.00
+ORDER 19890509 Domain 2 Website 1 EmailAccount 1
+ORDER 20150325 Domain 1 Website 1
+ORDER 20150809 Domain 2
+ORDER 20160714 EmailAccount 2
