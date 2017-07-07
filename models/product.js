@@ -5,10 +5,6 @@ class Product {
     this.unitPrice = unitPrice;
   }
 
-  toString() {
-    return `PRODUCT ${this.name} ${this.unitPrice}`;
-  }
-
 }
 
 module.exports = Product;
