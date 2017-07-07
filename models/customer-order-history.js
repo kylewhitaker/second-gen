@@ -42,8 +42,8 @@ class CustomerOrderHistory {
   addOrder(line) {
     var details = line.split(' ');
     var date = details[1];
-    var lineItems = details.slice(2);
-    this.products.push(new Order(date, lineItems));
+    var productsAndQuantities = details.slice(2);
+    this.products.push(new Order(date, productsAndQuantities));
   }
 
 }
