@@ -5,6 +5,14 @@ class Product {
     this.unitPrice = unitPrice;
   }
 
+  getName() {
+    return this.name;
+  }
+
+  getUnitPrice() {
+    return this.unitPrice;
+  }
+
 }
 
 module.exports = Product;

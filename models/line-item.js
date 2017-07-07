@@ -5,6 +5,14 @@ class LineItem {
     this.quantity = quantity;
   }
 
+  getProductName() {
+    return this.productName;
+  }
+
+  getQuantity() {
+    return Number(this.quantity);
+  }
+
 }
 
 module.exports = LineItem;

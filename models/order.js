@@ -10,12 +10,16 @@ class Order {
   setLineItems(productsAndQuantities) {
     var lineItems = []
     var count = productsAndQuantities.length / 2;
-    for (i = 0; i < count; i++) {
+    for (var i = 0; i < count; i++) {
       var productName = productsAndQuantities[i * 2];
       var quantity = productsAndQuantities[i * 2 + 1];
       lineItems.push(new LineItem(productName, quantity));
     }
     return lineItems;
+  }
+
+  getLineItems() {
+    return this.lineItems;
   }
 
 }

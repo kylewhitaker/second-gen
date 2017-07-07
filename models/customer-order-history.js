@@ -1,5 +1,6 @@
 var Product = require('./product');
 var Order = require('./order');
+var Summary = require('./summary');
 
 class CustomerOrderHistory {
 
@@ -7,7 +8,7 @@ class CustomerOrderHistory {
     this.input = input;
     this.products = [];
     this.orders = [];
-    this.summary = null;
+    this.summary = this.createSummary();
   }
 
   getInput() {
@@ -15,13 +16,16 @@ class CustomerOrderHistory {
   }
 
   getSummary() {
-    if (!this.summary) {
-      this.createSummary();
-    }
     return this.summary;
   }
 
   createSummary() {
+    this.mapInputDataToModels();
+    var customerSummary = new Summary(this.products, this.orders);
+    return customerSummary.getOutput();
+  }
+
+  mapInputDataToModels() {
     this.input.split('\n').forEach(line => {
       if (line.startsWith('PRODUCT')) {
         this.addProduct(line);
@@ -43,7 +47,7 @@ class CustomerOrderHistory {
     var details = line.split(' ');
     var date = details[1];
     var productsAndQuantities = details.slice(2);
-    this.products.push(new Order(date, productsAndQuantities));
+    this.orders.push(new Order(date, productsAndQuantities));
   }
 
 }
