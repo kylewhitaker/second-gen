@@ -1,12 +1,12 @@
 class Order {
 
-  constructor(date, items) {
+  constructor(date, lineItems) {
     this.date = date;
-    this.items = items;
+    this.lineItems = lineItems;
   }
 
   toString() {
-    return `ORDER ${this.date} ${this.items}`;
+    return `ORDER ${this.date} ${this.lineItems}`;
   }
 
 }
