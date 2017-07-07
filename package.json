@@ -1,0 +1,17 @@
+{
+  "name": "second-gen",
+  "version": "1.0.0",
+  "author": "Kyle Whitaker",
+  "description": "Javascript solution to the Second Gen technical assessment",
+  "main": "main.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "url": "https://github.com/kylewhitaker/second-gen"
+  },
+  "homepage": "https://github.com/kylewhitaker/second-gen#readme",
+  "devDependencies": {
+    "jasmine": "^2.6.0"
+  }
+}
