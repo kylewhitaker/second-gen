@@ -9,4 +9,5 @@ var fileAsString = fs.readFileSync(inputFile, 'utf8');
 var customerOrderHistory = new CustomerOrderHistory(fileAsString);
 
 // generate the output summary
+console.log(customerOrderHistory.input);
 console.log(customerOrderHistory.getSummary());

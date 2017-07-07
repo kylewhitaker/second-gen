@@ -1,6 +1,6 @@
 var Product = require('./product');
 var Order = require('./order');
-var Summary = require('./summary');
+var ProductOrderSummary = require('./product-order-summary');
 
 class CustomerOrderHistory {
 
@@ -8,7 +8,7 @@ class CustomerOrderHistory {
     this.input = input;
     this.products = this.mapProducts();
     this.orders = this.mapOrders();
-    this.summary = this.createSummary();
+    this.productOrderSummaries = this.mapProductOrderSummaries();
   }
 
   mapProducts() {
@@ -37,17 +37,28 @@ class CustomerOrderHistory {
     return orders;
   }
 
-  getInput() {
-    return this.input;
+  mapProductOrderSummaries() {
+    var productOrderSummaries = [];
+    this.products.forEach(product => {
+      var quantity = 0;
+      this.orders.forEach(order => {
+        order.lineItems.forEach(lineItem => {
+          if (lineItem.productName == product.name) {
+            quantity += Number(lineItem.quantity);
+          }
+        });
+      });
+      productOrderSummaries.push(new ProductOrderSummary(product, quantity));
+    });
+    return productOrderSummaries;
   }
 
   getSummary() {
-    return this.summary;
-  }
-
-  createSummary() {
-    var summary = new Summary(this.products, this.orders);
-    return summary.getOutput();
+    var summary = null;
+    this.productOrderSummaries.forEach(pos => {
+      summary = summary ? summary.concat('\n', pos.toString()) : pos.toString();
+    });
+    return summary;
   }
 
 }

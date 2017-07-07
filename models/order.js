@@ -18,10 +18,6 @@ class Order {
     return lineItems;
   }
 
-  getLineItems() {
-    return this.lineItems;
-  }
-
 }
 
 module.exports = Order;
