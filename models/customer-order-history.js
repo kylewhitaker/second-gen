@@ -6,9 +6,35 @@ class CustomerOrderHistory {
 
   constructor(input) {
     this.input = input;
-    this.products = [];
-    this.orders = [];
+    this.products = this.mapProducts();
+    this.orders = this.mapOrders();
     this.summary = this.createSummary();
+  }
+
+  mapProducts() {
+    var products = [];
+    this.input.split('\n').filter(line => {
+      return line.startsWith('PRODUCT');
+    }).forEach(line => {
+      var details = line.split(' ');
+      var name = details[1];
+      var unitPrice = details[2];
+      products.push(new Product(name, unitPrice));
+    });
+    return products;
+  }
+
+  mapOrders() {
+    var orders = [];
+    this.input.split('\n').filter(line => {
+      return line.startsWith('ORDER');
+    }).forEach(line => {
+      var details = line.split(' ');
+      var date = details[1];
+      var productsAndQuantities = details.slice(2);
+      orders.push(new Order(date, productsAndQuantities));
+    });
+    return orders;
   }
 
   getInput() {
@@ -20,34 +46,8 @@ class CustomerOrderHistory {
   }
 
   createSummary() {
-    this.mapInputDataToModels();
-    var customerSummary = new Summary(this.products, this.orders);
-    return customerSummary.getOutput();
-  }
-
-  mapInputDataToModels() {
-    this.input.split('\n').forEach(line => {
-      if (line.startsWith('PRODUCT')) {
-        this.addProduct(line);
-      }
-      else if (line.startsWith('ORDER')) {
-        this.addOrder(line);
-      }
-    });
-  }
-
-  addProduct(line) {
-    var details = line.split(' ');
-    var name = details[1];
-    var unitPrice = details[2];
-    this.products.push(new Product(name, unitPrice));
-  }
-
-  addOrder(line) {
-    var details = line.split(' ');
-    var date = details[1];
-    var productsAndQuantities = details.slice(2);
-    this.orders.push(new Order(date, productsAndQuantities));
+    var summary = new Summary(this.products, this.orders);
+    return summary.getOutput();
   }
 
 }
