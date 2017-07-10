@@ -68,15 +68,45 @@ describe('Model: CustomerOrderHistory', () => {
   });
 
   describe('method mapProductOrderSummaries()', () => {
+
+    var products = coh.mapProducts(mockInput);
+    var orders = coh.mapOrders(mockInput);
+
     it('should return a valid ProductSummary array output given a valid input', () => {
       var expectedOutput = [
         new ProductOrderSummary(new Product('foo', '2.00'), 5),
         new ProductOrderSummary(new Product('bar', '3.23'), 5)
       ];
-      var miProducts = coh.mapProducts(mockInput);
-      var miOrders = coh.mapOrders(mockInput);
-      expect(coh.mapProductOrderSummaries(miProducts, miOrders)).toEqual(expectedOutput);
+      expect(coh.mapProductOrderSummaries(products, orders)).toEqual(expectedOutput);
     });
+
+    it('should call \'orderDateBefore2000\'', () => {
+      var spy = spyOn(coh, 'orderDateBefore2000').and.callThrough();
+
+      coh.mapProductOrderSummaries(products, orders);
+
+      expect(spy).toHaveBeenCalled();
+    });
+
+  });
+
+  describe('method orderDateBefore2000', () => {
+
+    it('should return true if date is before 20000101', () => {
+      var date = '19991231';
+      expect(coh.orderDateBefore2000(date)).toBeTruthy();
+    });
+
+    it('should return false if date is equal to 20000101', () => {
+      var date = '20000101';
+      expect(coh.orderDateBefore2000(date)).toBeFalsy();
+    });
+
+    it('should return false if date is after 20000101', () => {
+      var date = '20150615';
+      expect(coh.orderDateBefore2000(date)).toBeFalsy();
+    });
+
   });
 
 });

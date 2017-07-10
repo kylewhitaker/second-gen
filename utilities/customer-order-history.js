@@ -47,7 +47,8 @@ class CustomerOrderHistory {
       var quantity = 0;
       orders.forEach(order => {
         order.lineItems.forEach(lineItem => {
-          if (lineItem.productName == product.name) {
+          if (lineItem.productName == product.name
+            && !this.orderDateBefore2000(order.date)) {
             quantity += Number(lineItem.quantity);
           }
         });
@@ -55,6 +56,10 @@ class CustomerOrderHistory {
       productOrderSummaries.push(new ProductOrderSummary(product, quantity));
     });
     return productOrderSummaries;
+  }
+
+  orderDateBefore2000(date) {
+    return date.localeCompare('20000101') < 0;
   }
 
 }
