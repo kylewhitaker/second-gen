@@ -27,15 +27,11 @@ LineItem | ProductName, Quantity | Sub-model *input* data for each ORDER line
 ## Unit Testing
 * Jasmine framework + Jasmine CLI test runner (simple, gets the job done)
 * Specs bunched together in same "neighborhood" as tested code
-## Acceptance Testing
+### Acceptance Testing
 * Manual smoke testing using sample input files (e.g., inputs/input-01.txt)
 * Notable considerations:
    1. `Unit Price` - Maintain two decimal places from input, to calculations, to output.
    2. `Order Date` - Orders before year 2000 are not included in output calculations.
    3. `Sorting` - Output displays product lines ordered by quantity, high to low.
-## Assumptions
+### Assumptions
 * Input files are formatted correctly (no null exceptions)
-
----
-
-(end)
