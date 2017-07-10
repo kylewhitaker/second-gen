@@ -13,18 +13,18 @@ $ npm install   // install Jasmine dependendies, node_modules folder (one-time)
 $ npm test      // execute unit tests in console using Jasmine CLI
 ```
 # Development
-## Main.js
+### Main.js
 * Keep the executable small. Let a utility class handle the grunt work.
-## CustomerOrderHistory.js
+### CustomerOrderHistory.js
 * Sole utility class to handle the grunt work of object mapping, order filtering, and product output sorting.
-## Domain Modeling
+### Domain Modeling
 Object  | Properties  | Purpose
 :------ | :---------- | :-------
 ProductOrderSummary | ProductName, Quantity, Cost | Model data for each *output* line
 Product | Name, UnitPrice | Model *input* data for each PRODUCT line
 Order | Date, LineItems | Model *input* data for each ORDER line
 LineItem | ProductName, Quantity | Sub-model *input* data for each ORDER line
-## Unit Testing
+### Unit Testing
 * Jasmine framework + Jasmine CLI test runner (simple, gets the job done)
 * Specs bunched together in same "neighborhood" as tested code
 ### Acceptance Testing
