@@ -7,11 +7,11 @@ describe('Model: LineItem', () => {
   var lineItem = new LineItem(productName, quantity);
 
   it('should have a string property \'productName\'', () => {
-    expect(lineItem.productName).toEqual('foo');
+    expect(lineItem.productName).toEqual(productName);
   });
 
   it('should have a numeric property \'quantity\'', () => {
-    expect(lineItem.quantity).toEqual(1);
+    expect(lineItem.quantity).toEqual(Number(quantity));
   });
 
 });

@@ -16,28 +16,20 @@ describe('Model: ProductOrderSummary', () => {
     expect(pos.quantity).toEqual(2);
   });
 
-  it('should have a string property \'cost\'', () => {
+  it('should have a string property \'cost\' and extend to two decimal places', () => {
     expect(pos.cost).toEqual('60.50');
   });
 
   describe('method \'setCost\'', () => {
     it('should return quantity * unitPrice to two decimal places', () => {
-      // test run order dependency - not good
-      var tempPOS = new ProductOrderSummary(product, '4');
-      expect(tempPOS.setCost('10.25')).toEqual('41.00');
+      expect(pos.setCost('30.25')).toEqual('60.50');
     });
   });
 
   describe('method \'toString\'', () => {
     it('should return ProductOrderSummary object as a console-friendly string', () => {
-      // code smell: too much setup, dependencies
-      var tempProduct = {
-        name: 'bar',
-        unitPrice: '3.99'
-      };
-      var tempPOS = new ProductOrderSummary(tempProduct, '3');
-      var expectedToString = 'bar: 3 sold for $11.97';
-      expect(tempPOS.toString()).toEqual(expectedToString);
+      var expected = 'foo: 2 sold for $60.50';
+      expect(pos.toString()).toEqual(expected);
     });
   });
 });

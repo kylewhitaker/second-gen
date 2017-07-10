@@ -10,9 +10,8 @@ describe('Model: CustomerOrderHistory', () => {
 
   describe('method getSummary()', () => {
 
-    var expectedOutput = 'foo: 5 sold for $10.00\nbar: 5 sold for $16.15';
-
     it('should return a valid summary output given any input', () => {
+      var expectedOutput = 'foo: 5 sold for $10.00\nbar: 5 sold for $16.15';
       expect(coh.getSummary(mockInput)).toEqual(expectedOutput)
     });
 
@@ -36,9 +35,13 @@ describe('Model: CustomerOrderHistory', () => {
 
     it('should call mapProductOrderSummaries()', () => {
       var spy = spyOn(coh, 'mapProductOrderSummaries').and.callThrough();
+      var products = coh.mapProducts(mockInput);
+      var orders = coh.mapOrders(mockInput);
+
       coh.getSummary(mockInput);
 
       expect(spy).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalledWith(products, orders);
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
