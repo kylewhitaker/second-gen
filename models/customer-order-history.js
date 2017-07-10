@@ -4,16 +4,20 @@ var ProductOrderSummary = require('./product-order-summary');
 
 class CustomerOrderHistory {
 
-  constructor(input) {
-    this.input = input;
-    this.products = this.mapProducts();
-    this.orders = this.mapOrders();
-    this.productOrderSummaries = this.mapProductOrderSummaries();
+  getSummary(input) {
+    var products = this.mapProducts(input);
+    var orders = this.mapOrders(input);
+    var productOrderSummaries = this.mapProductOrderSummaries(products, orders);
+    var summary = null;
+    productOrderSummaries.forEach(pos => {
+      summary = summary ? summary.concat('\n', pos.toString()) : pos.toString();
+    });
+    return summary;
   }
 
-  mapProducts() {
+  mapProducts(input) {
     var products = [];
-    this.input.split('\n').filter(line => {
+    input.split('\n').filter(line => {
       return line.startsWith('PRODUCT');
     }).forEach(line => {
       var details = line.split(' ');
@@ -24,9 +28,9 @@ class CustomerOrderHistory {
     return products;
   }
 
-  mapOrders() {
+  mapOrders(input) {
     var orders = [];
-    this.input.split('\n').filter(line => {
+    input.split('\n').filter(line => {
       return line.startsWith('ORDER');
     }).forEach(line => {
       var details = line.split(' ');
@@ -37,11 +41,11 @@ class CustomerOrderHistory {
     return orders;
   }
 
-  mapProductOrderSummaries() {
+  mapProductOrderSummaries(products, orders) {
     var productOrderSummaries = [];
-    this.products.forEach(product => {
+    products.forEach(product => {
       var quantity = 0;
-      this.orders.forEach(order => {
+      orders.forEach(order => {
         order.lineItems.forEach(lineItem => {
           if (lineItem.productName == product.name) {
             quantity += Number(lineItem.quantity);
@@ -51,14 +55,6 @@ class CustomerOrderHistory {
       productOrderSummaries.push(new ProductOrderSummary(product, quantity));
     });
     return productOrderSummaries;
-  }
-
-  getSummary() {
-    var summary = null;
-    this.productOrderSummaries.forEach(pos => {
-      summary = summary ? summary.concat('\n', pos.toString()) : pos.toString();
-    });
-    return summary;
   }
 
 }
