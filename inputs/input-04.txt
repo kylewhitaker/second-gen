@@ -1,0 +1,18 @@
+PRODUCT Domain 20.00
+PRODUCT EmailAccount 60.00
+PRODUCT Website 35.00
+PRODUCT Swag 3.00
+PRODUCT LateFee 1.00
+PRODUCT Computer 800.00
+PRODUCT PowerCord 28.00
+PRODUCT Headphones 180.00
+PRODUCT Paper 31.00
+PRODUCT Pencils 2.00
+PRODUCT Developer 423.01
+PRODUCT Designer 318.00
+PRODUCT Bologna 4.34
+ORDER 19890509 Domain 2 Website 1 EmailAccount 1
+ORDER 20150325 Domain 1 Website 1 Developer 10
+ORDER 20150809 Domain 2 Paper 7 Designer 5 Bologna 2
+ORDER 20160714 EmailAccount 2 Pencils 8 PowerCord 8
+ORDER 20160714 Website 4 Swag 1 LateFee 1

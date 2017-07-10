@@ -109,4 +109,76 @@ describe('Model: CustomerOrderHistory', () => {
 
   });
 
+  describe('method mergeSort', () => {
+
+    it('should call compare method if array size > 1', () => {
+      var pos2 = [
+        { quantity: 2 },
+        { quantity: 3 }
+      ];
+      var spy = spyOn(coh, 'compare');
+
+      coh.mergeSort(pos2);
+
+      expect(spy).toHaveBeenCalled()
+    });
+
+    it('should NOT call compare method if array size <= 1', () => {
+      var pos0 = [];
+      var pos1 = [{ quantity: 2 }];
+      var spy = spyOn(coh, 'compare');
+
+      coh.mergeSort(pos0);
+      coh.mergeSort(pos1);
+
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should return a POS array sorted by quantity HIGH to LOW', () => {
+      var posInput = [
+        { quantity: 2 },
+        { quantity: 5 },
+        { quantity: 1 },
+        { quantity: 1 },
+        { quantity: 7 },
+        { quantity: 5 },
+        { quantity: 4 },
+        { quantity: 18 }
+      ];
+      var posOutput = [
+        { quantity: 18 },
+        { quantity: 7 },
+        { quantity: 5 },
+        { quantity: 5 },
+        { quantity: 4 },
+        { quantity: 2 },
+        { quantity: 1 },
+        { quantity: 1 },
+      ];
+      expect(coh.mergeSort(posInput)).toEqual(posOutput);
+    });
+  });
+
+  describe('method compare', () => {
+
+    it('should return true if param1.quantity > param2.quantity', () => {
+      var pos1 = { quantity: 3 };
+      var pos2 = { quantity: 2 };
+      expect(coh.compare(pos1, pos2)).toBe(true);
+    });
+
+    it('should return true if param1.quantity = param2.quantity for stability', () => {
+      var pos1 = { quantity: 2 };
+      var pos2 = { quantity: 2 };
+      expect(coh.compare(pos1, pos2)).toBe(true);
+    });
+
+    it('should return false if param1.quantity < param2.quantity', () => {
+      var pos1 = { quantity: 1 };
+      var pos2 = { quantity: 2 };
+      expect(coh.compare(pos1, pos2)).toBe(false);
+    });
+
+  });
+
 });

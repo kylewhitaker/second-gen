@@ -55,11 +55,30 @@ class CustomerOrderHistory {
       });
       productOrderSummaries.push(new ProductOrderSummary(product, quantity));
     });
-    return productOrderSummaries;
+    return this.mergeSort(productOrderSummaries);
   }
 
   orderDateBefore2000(date) {
     return date.localeCompare('20000101') < 0;
+  }
+
+  mergeSort(pos) {
+    if (pos.length <= 1) {
+      return pos;
+    } else {
+      var midpoint = pos.length / 2;
+      var a = this.mergeSort(pos.slice(0, midpoint));
+      var b = this.mergeSort(pos.slice(midpoint));
+      var merged = [];
+      while (a.length > 0 && b.length > 0) {
+        merged.push(this.compare(a[0], b[0]) ? a.shift() : b.shift());
+      }
+      return merged.concat(a, b);
+    }
+  }
+
+  compare(pos1, pos2) {
+    return pos1.quantity >= pos2.quantity;
   }
 
 }
