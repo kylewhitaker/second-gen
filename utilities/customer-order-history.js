@@ -1,6 +1,6 @@
-var Product = require('./product');
-var Order = require('./order');
-var ProductOrderSummary = require('./product-order-summary');
+var Product = require('../models/product');
+var Order = require('../models/order');
+var ProductOrderSummary = require('../models/product-order-summary');
 
 class CustomerOrderHistory {
 

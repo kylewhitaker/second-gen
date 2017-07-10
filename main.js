@@ -1,5 +1,5 @@
 var fs = require('fs');
-var CustomerOrderHistory = require('./models/customer-order-history');
+var CustomerOrderHistory = require('./utilities/customer-order-history');
 
 // get the input file
 var file = process.argv[2];

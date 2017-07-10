@@ -1,7 +1,8 @@
 {
   "spec_dir": "",
   "spec_files": [
-    "models/specs/*.spec.js"
+    "models/specs/*.spec.js",
+    "utilities/specs/*.spec.js"
   ],
   "stopSpecOnExpectationFailure": false,
   "random": true
