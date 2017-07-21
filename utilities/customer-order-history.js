@@ -1,8 +1,11 @@
 var Product = require('../models/product');
 var Order = require('../models/order');
 var ProductOrderSummary = require('../models/product-order-summary');
+var AnnualRevenueSummary = require('../models/annual-revenue-summary');
 
 class CustomerOrderHistory {
+
+  // PART 1
 
   getSummary(input) {
     var products = this.mapProducts(input);
@@ -79,6 +82,43 @@ class CustomerOrderHistory {
 
   compare(pos1, pos2) {
     return pos1.quantity >= pos2.quantity;
+  }
+
+  // PART 2
+
+  getAnnualRevenue(input) {
+    var products = this.mapProducts(input);
+    var orders = this.mapOrders(input);
+    var annualRevenueSummaries = this.mapAnnualOrderSummaries(products, orders);
+    var summary = null;
+    annualRevenueSummaries.forEach(pos => {
+      summary = summary ? summary.concat('\n', pos.toString()) : pos.toString();
+    });
+    return summary;
+  }
+
+  mapAnnualOrderSummaries(products, orders) {
+    var annualRevenueSummaries = [];
+    orders.forEach(order => {
+      if (!this.orderDateBefore2000(order.date)) {
+        var year = order.date.substr(0, 4);
+        var ars = annualRevenueSummaries.find(ars => { return ars.year == year; });
+        if (ars) {
+          ars.addRevenue(order, products);
+        } else {
+          annualRevenueSummaries.push(new AnnualRevenueSummary(year, order, products));
+        }
+      }
+    });
+    return annualRevenueSummaries.sort((a, b) => {
+      if (a.year < b.year) {
+        return -1;
+      } else if (a.year > b.year) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
   }
 
 }
